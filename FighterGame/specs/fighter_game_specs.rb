@@ -60,6 +60,13 @@ class TestFighterGame < Minitest::Test
     strength: 50,
     toughness: 50,
     speed: 4, 
+    },
+    {
+    name: "Tough Man",
+    health: 350,
+    strength: 50,
+    toughness: 50,
+    speed: 4, 
     }
     ]
 
@@ -106,8 +113,8 @@ class TestFighterGame < Minitest::Test
     },
     recover:{
         type: :heal,
-        min: 30,
-        max: 75,
+        min: 0,
+        max: 100,
     }}
   end
 
