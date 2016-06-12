@@ -103,13 +103,13 @@ class TestFighterGame < Minitest::Test
     },
     block_high:{
         type: :high,
-        min: 30,
+        min: 3,
         max: 50,
     },
     block_low:{
         type: :low,
-        min: 30,
-        max: 50,
+        min: 0,
+        max: 0,
     },
     recover:{
         type: :heal,

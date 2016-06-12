@@ -29,7 +29,7 @@ speed: 5
 },
 {
 name: "FatMan",
-health: 500,
+health: 600,
 strength: 40,
 toughness: 50,
 speed: 1 
@@ -37,7 +37,7 @@ speed: 1
 {
 name: "Muscle Man",
 health: 350,
-strength: 70,
+strength: 60,
 toughness: 40,
 speed: 2
 },
@@ -46,14 +46,21 @@ name: "Fast Man",
 health: 300,
 strength: 40,
 toughness: 40,
-speed: 7
+speed: 8
 },
 {
 name: "Tough Guy",
 health: 350,
 strength: 40,
-toughness: 60,
+toughness: 55,
 speed: 3
+},
+{
+name: "BIG BOSS",
+health: 750,
+strength: 70,
+toughness: 70,
+speed: 5
 }
 ]
 
@@ -134,7 +141,7 @@ def choose_fighter(fighter_ref)
 end
 
 def choose_opponent()
-  fighter_ref = rand(0..4)
+  fighter_ref = rand(0..5)
   @opponent[:name] = @fighters[fighter_ref][:name]
   @opponent[:health] = @fighters[fighter_ref][:health]
   @opponent[:strength] = @fighters[fighter_ref][:strength]
@@ -172,26 +179,26 @@ def choose_opponent_attack()
     return @attacks[:recover]
   else
   
-  attack_ref = rand(0..8)
-  case attack_ref
-    when 1
-      return @attacks[:punch]
-    when 2
-      return @attacks[:elbow]
-    when 3
-      return @attacks[:throw]
-    when 4
-      return @attacks[:kick]
-    when 5
-      return @attacks[:knee]
-    when 6
-      return @attacks[:sweep]
-    when 7
-      return @attacks[:block_high]
-    when 8
-      return @attacks[:block_low]
-    else
-      return @attacks[:punch]
+    attack_ref = rand(0..8)
+    case attack_ref
+      when 1
+        return @attacks[:punch]
+      when 2
+        return @attacks[:elbow]
+      when 3
+        return @attacks[:throw]
+      when 4
+        return @attacks[:kick]
+      when 5
+        return @attacks[:knee]
+      when 6
+        return @attacks[:sweep]
+      when 7
+        return @attacks[:block_high]
+      when 8
+        return @attacks[:block_low]
+      else
+        return @attacks[:punch]
     end
   end
 end
@@ -262,6 +269,26 @@ puts "9:RECOVER: #{@attacks[:recover][:min]} to  #{@attacks[:recover][:max]} is 
 puts
 end
 
+def display_rules()
+puts <<-rul
+  RULES:
+  Health:     how much damage you can take
+  Strength:   how much extra damage you can cause on top of base damage
+  Toughness:  how much damage you can ignore before losing health
+  Speed:      affects how likely you are to dodge an attack completely
+
+  Punch:      low damage but reliable range of damage
+  Elbow:      potential high damage but long range
+  Throw:      set level of base damage  
+
+  Kick:      low damage but reliable range of damage
+  Knee:      potential high damage but long range
+  Sweep:     set level of base damage 
+
+  Block:     negates opponent attack if on same level and reflects 150% back   
+  Recover:   recovers health but does not attack        
+rul
+end
 def check_fight_order()
   if @player_stats[:speed] > @opponent[:speed]
     return @player[:name] 
@@ -328,6 +355,10 @@ d8888b. db    db d8b   db  .o88b. db   db
    YP      YP   YP  `Y88P' Y88888P YP
 logo
 puts
+puts "Would you like to see the rules? Y/N?"
+if gets.chomp.upcase == "Y"
+  display_rules()
+end
 puts"--------------------------"
 puts "What is your Player Name!"
 puts
@@ -453,7 +484,14 @@ end
 puts
 puts
   if @player_win == true && @opponent_win == true
-    puts "DOUBLE KO!! in #{round_count} rounds!"
+    puts <<-dko
+    d8888b. d8888b. db        db   dD  .d88b.  db 
+    88  `8D 88  `8D 88        88 ,8P' .8P  Y8. 88 
+    88   88 88oooY' 88        88,8P   88    88 YP 
+    88   88 88~~~b. 88        88`8b   88    88    
+    88  .8D 88   8D 88booo.   88 `88. `8b  d8' db 
+    Y8888D' Y8888P' Y88888P   YP   YD  `Y88P'  YP
+    dko
   elsif @player_win == true
     puts 
 puts <<-win
